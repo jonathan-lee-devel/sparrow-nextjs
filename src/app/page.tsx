@@ -10,26 +10,41 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className='relative h-screen flex items-center justify-center overflow-x-hidden'>
-      <div className='container pt-32 max-w-7xl w-full mx-auto h-full'>
-        <div className='h-full gap-6 flex flex-collg:justify-center items-center'>
+    <div>
+      <div className='container pt-32 max-w-7xl mx-auto'>
+        <div className='items-center'>
           <LargeHeading
             size='lg'
             className='three-d text-black dark:text-light-gold'>
             Sparrow.Express
           </LargeHeading>
-
-          <Paragraph className='max-w-xl'>
-            Search for your favorite delivery service:
-          </Paragraph>
-
-          <div>
-            <form>
-              <i className="fa fa-search" aria-hidden="true"></i><input type="text" name="search"
-                                                                        placeholder="Search.." />
-            </form>
-          </div>
         </div>
+        <div>
+        <Paragraph className='max-w-xl'>
+          Search for your favorite delivery service:
+        </Paragraph>
+        </div>
+      </div>
+      <div className={'container max-2-2xl'}>
+        <form>
+          <label htmlFor="default-search"
+                 className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none"
+                   stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+            <input type="search" id="default-search"
+                   className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   placeholder="Search Mockups, Logos..." required />
+              <button type="submit"
+                      className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search
+              </button>
+          </div>
+        </form>
       </div>
     </div>
   )
