@@ -1,7 +1,12 @@
 {
   "name": "sparrow",
   "version": "0.1.0",
-  "private": true,
+  "author": "Jonathan Lee <jonathan.lee.devel@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/jonathan-lee-devel/sparrow/issues"
+  },
+  "homepage": "https://github.com/jonathan-lee-devel/sparrow#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
