@@ -1,7 +1,15 @@
 import LargeHeading from '@/components/ui/LargeHeading'
 import Paragraph from '@/components/ui/Paragraph'
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/lib/auth";
+import {notFound} from "next/navigation";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+    const user = await getServerSession(authOptions)
+    if (!user) {
+        return notFound()
+    }
+
     return (
         <div>
             <div className='container pt-32 max-w-7xl mx-auto'>
@@ -17,6 +25,13 @@ export default function Dashboard() {
                         Search for your favorite delivery service:
                     </Paragraph>
                 </div>
+            </div>
+            <div className={'container'}>
+                <LargeHeading
+                    size={'sm'}
+                    className={'three-d text-black dark:text-light-gold'}>
+                    Welcome to the Dashboard
+                </LargeHeading>
             </div>
         </div>
     )
