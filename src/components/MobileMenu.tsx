@@ -1,10 +1,10 @@
 'use client'
 
-import { Info, LayoutDashboard, Loader2, User } from 'lucide-react'
-import { signOut, useSession } from 'next-auth/react'
+import {LayoutDashboard, Loader2, User} from 'lucide-react'
+import {signOut, useSession} from 'next-auth/react'
 import Link from 'next/link'
-import { useState } from 'react'
-import { Button } from './ui/Button'
+import {useState} from 'react'
+import {Button} from './ui/Button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/DropdownMenu'
-import { toast } from './ui/toast'
+import {toast} from './ui/toast'
 
 const MobileMenu = () => {
   const { data: session } = useSession()
@@ -60,15 +60,6 @@ const MobileMenu = () => {
                     <span>Sign in</span>
                   </Link>
                 )}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link
-                  href='/documentation'
-                  className='w-full flex items-center gap-1.5'>
-                  <Info className='mr-2 h-5 w-5' />
-                  <span>Docs</span>
-                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={signUserOut} className='gap-1.5'>

@@ -1,8 +1,8 @@
-import { getToken } from 'next-auth/jwt'
-import { withAuth } from 'next-auth/middleware'
-import { NextResponse } from 'next/server'
-import { Ratelimit } from '@upstash/ratelimit'
-import { Redis } from '@upstash/redis'
+import {getToken} from 'next-auth/jwt'
+import {withAuth} from 'next-auth/middleware'
+import {NextResponse} from 'next/server'
+import {Ratelimit} from '@upstash/ratelimit'
+import {Redis} from '@upstash/redis'
 
 const redis = new Redis({
   url: process.env.REDIS_URL,
@@ -50,6 +50,8 @@ export default withAuth(
       !isAuth &&
       sensitiveRoutes.some((route) => pathname.startsWith(route))
     ) {
+        // eslint-disable-next-line no-console
+        console.log(`HERE token = ${token}`)
       return NextResponse.redirect(new URL('/login', req.url))
     }
   },
