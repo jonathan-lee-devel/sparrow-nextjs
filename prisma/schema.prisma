@@ -39,19 +39,20 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id                           String         @id @default(cuid())
+  name                         String?
+  email                        String?        @unique
+  emailVerified                DateTime?
+  image                        String?
+  accounts                     Account[]
+  sessions                     Session[]
+  organizationsAsMember        Organization[] @relation("Members") // One-to-Many relationship with Organization as member
+  organizationsAsAdministrator Organization[] @relation("Administrators") // One-to-Many relationship with Organization as administrator
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
+model Organization {
+  id             String @id @default(cuid())
+  name           String
+  members        User[] @relation("Members") // Many-to-Many relationship with User as members
+  administrators User[] @relation("Administrators") // Many-to-Many relationship with User as administrators
 }

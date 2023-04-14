@@ -1,7 +1,7 @@
 import {NextResponse} from 'next/server';
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/lib/auth";
-import {db} from "@/lib/db";
+import {prismaClient} from "@/lib/db";
 
 export async function GET() {
     const session = await getServerSession(authOptions)
@@ -9,7 +9,7 @@ export async function GET() {
         return new Response('Unauthorized', { status: 401 })
     }
 
-    const user = await db.user.findFirst({
+    const user = await prismaClient.user.findFirst({
         where: {
             email: session.user.email
         }

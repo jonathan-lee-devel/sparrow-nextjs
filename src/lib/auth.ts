@@ -1,6 +1,6 @@
-import { db } from '@/lib/db'
-import { PrismaAdapter } from '@next-auth/prisma-adapter'
-import { NextAuthOptions } from 'next-auth'
+import {prismaClient} from '@/lib/db'
+import {PrismaAdapter} from '@next-auth/prisma-adapter'
+import {NextAuthOptions} from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
 function getGoogleCredentials(): { clientId: string; clientSecret: string } {
@@ -18,7 +18,7 @@ function getGoogleCredentials(): { clientId: string; clientSecret: string } {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(prismaClient),
   session: {
     strategy: 'jwt',
   },
@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async jwt({ token, user }) {
-      const dbUser = await db.user.findFirst({
+      const dbUser = await prismaClient.user.findFirst({
         where: {
           email: token.email,
         },
