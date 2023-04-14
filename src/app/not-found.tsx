@@ -1,15 +1,14 @@
 import Icons from '@/components/Icons'
-import { buttonVariants } from '@/components/ui/Button'
+import {buttonVariants} from '@/components/ui/Button'
 import LargeHeading from '@/components/ui/LargeHeading'
 import Paragraph from '@/components/ui/Paragraph'
 import Link from 'next/link'
-import { FC } from 'react'
+import {FC} from 'react'
 
-import type { Metadata } from 'next'
+import type {Metadata} from 'next'
 
 export const metadata: Metadata = {
-  title: 'Similarity API | Page not found',
-  description: 'Free & open-source text similarity API',
+  title: 'Sparrow | Page not found',
 }
 
 const PageNotFound: FC = () => {
