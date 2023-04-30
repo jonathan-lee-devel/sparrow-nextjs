@@ -1,7 +1,7 @@
-import LargeHeading from '@/components/ui/LargeHeading'
-import Paragraph from '@/components/ui/Paragraph'
+import LargeHeading from '@/frontend/components/ui/LargeHeading'
+import Paragraph from '@/frontend/components/ui/Paragraph'
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/auth";
+import {authOptions} from "@/backend/lib/auth";
 import {notFound} from "next/navigation";
 
 export default async function Dashboard() {

@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server";
-import {prismaClient} from "@/lib/db";
+import {prismaClient} from "@/backend/lib/db";
 
 export async function GET(request: Request, { params }: {
     params: { organizationId: string }

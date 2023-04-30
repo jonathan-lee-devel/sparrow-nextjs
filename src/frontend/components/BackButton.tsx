@@ -1,10 +1,10 @@
 'use client'
 
-import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
-import { ButtonHTMLAttributes, FC } from 'react'
-import Icons from './Icons'
-import { Button } from './ui/Button'
+import {cn} from '@/frontend/lib/utils'
+import {useRouter} from 'next/navigation'
+import {ButtonHTMLAttributes, FC} from 'react'
+import Icons from '@/frontend/components/Icons'
+import {Button} from '@/frontend/components/ui/Button'
 
 interface BackButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 

@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/DropdownMenu'
-import {toast} from './ui/toast'
+import {toast} from '@/frontend/components/ui/toast'
 
 const MobileMenu = () => {
   const { data: session } = useSession()

@@ -1,9 +1,9 @@
 'use client'
 
-import { Icons } from '@/components/Icons'
-import { cn } from '@/lib/utils'
+import {Icons} from '@/frontend/components/Icons'
+import {cn} from '@/frontend/lib/utils'
 import * as React from 'react'
-import hotToast, { Toaster as HotToaster } from 'react-hot-toast'
+import hotToast, {Toaster as HotToaster} from 'react-hot-toast'
 
 export const Toaster = HotToaster
 

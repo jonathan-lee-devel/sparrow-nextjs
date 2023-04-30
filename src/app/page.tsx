@@ -1,5 +1,5 @@
-import LargeHeading from '@/components/ui/LargeHeading'
-import Paragraph from '@/components/ui/Paragraph'
+import LargeHeading from '@/frontend/components/ui/LargeHeading'
+import Paragraph from '@/frontend/components/ui/Paragraph'
 
 import type {Metadata} from 'next'
 

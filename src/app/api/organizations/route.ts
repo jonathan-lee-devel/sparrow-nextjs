@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server';
-import {prismaClient} from "@/lib/db";
+import {prismaClient} from "@/backend/lib/db";
 import {Organization} from ".prisma/client";
 
 export async function POST(request: Request) {

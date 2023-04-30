@@ -1,10 +1,10 @@
 'use client'
 
-import { cn } from '@/lib/utils'
-import { Copy } from 'lucide-react'
-import { ButtonHTMLAttributes, FC } from 'react'
-import { Button } from './ui/Button'
-import { toast } from './ui/toast'
+import {cn} from '@/frontend/lib/utils'
+import {Copy} from 'lucide-react'
+import {ButtonHTMLAttributes, FC} from 'react'
+import {Button} from './ui/Button'
+import {toast} from './ui/toast'
 
 interface CopyButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   valueToCopy: string

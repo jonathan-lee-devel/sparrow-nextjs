@@ -1,7 +1,7 @@
 import {NextResponse} from 'next/server';
-import {prismaClient} from "@/lib/db";
-import {getServerSessionOrLocal} from "@/helpers/server/get-session";
-import {returnUnauthorized} from "@/helpers/server/return-status";
+import {prismaClient} from "@/backend/lib/db";
+import {getServerSessionOrLocal} from "@/backend/helpers/server/get-session";
+import {returnUnauthorized} from "@/backend/helpers/server/return-status";
 
 export async function GET() {
     const session = await getServerSessionOrLocal()

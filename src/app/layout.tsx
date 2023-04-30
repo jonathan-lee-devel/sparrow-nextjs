@@ -1,11 +1,11 @@
-import Navbar from '@/components/Navbar'
-import {Toaster} from '@/components/ui/toast'
-import '@/styles/globals.css'
+import Navbar from '@/frontend/components/Navbar'
+import {Toaster} from '@/frontend/components/ui/toast'
+import '@/frontend/styles/globals.css'
 import {Inter} from 'next/font/google'
 
-import MobileMenu from '@/components/MobileMenu'
-import Providers from '@/components/Providers'
-import {cn} from '@/lib/utils'
+import MobileMenu from '@/frontend/components/MobileMenu'
+import Providers from '@/frontend/components/Providers'
+import {cn} from '@/frontend/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
 
