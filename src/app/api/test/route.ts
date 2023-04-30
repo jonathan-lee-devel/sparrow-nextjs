@@ -1,15 +1,19 @@
 import {NextResponse} from 'next/server';
-import {getServerSession} from "next-auth";
-import {authOptions} from "@/lib/auth";
 import {prismaClient} from "@/lib/db";
+import {getServerSessionOrLocal} from "@/helpers/server/get-session";
+import {returnUnauthorized} from "@/helpers/server/return-status";
 
 export async function GET() {
-    const session = await getServerSession(authOptions)
+    const session = await getServerSessionOrLocal()
     if (!session) {
-        return new Response('Unauthorized', { status: 401 })
+        return returnUnauthorized()
     }
 
-    const user = await prismaClient.user.findFirst({
+    if (!session.user.email) {
+        return returnUnauthorized()
+    }
+
+    const user = await prismaClient.user.findUnique({
         where: {
             email: session.user.email
         }

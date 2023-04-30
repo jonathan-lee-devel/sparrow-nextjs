@@ -6,7 +6,7 @@ export async function GET(request: Request, { params }: {
 }) {
     const organizationId = params.organizationId;
 
-    const organization = await prismaClient.organization.findFirst({
+    const organization = await prismaClient.organization.findUnique({
         where: {
             id: organizationId,
         },
