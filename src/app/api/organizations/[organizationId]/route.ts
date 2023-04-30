@@ -1,20 +1,17 @@
 import {NextResponse} from "next/server";
-import {prismaClient} from "@/backend/lib/db";
+import {getOrganization} from "../../../../backend/services/organizations/use-cases";
+import {getServerSessionOrLocal} from "@/backend/helpers/server/get-session";
+import {returnUnauthorized} from "@/backend/helpers/server/return-status";
 
 export async function GET(request: Request, { params }: {
     params: { organizationId: string }
 }) {
-    const organizationId = params.organizationId;
+    const session = await getServerSessionOrLocal()
+    if (!session || !session.user.email) {
+        return returnUnauthorized()
+    }
 
-    const organization = await prismaClient.organization.findUnique({
-        where: {
-            id: organizationId,
-        },
-        include: {
-            members: {},
-            administrators: {},
-        }
-    })
+    const organizationContainer = await getOrganization(session.user.email, params.organizationId);
 
-    return NextResponse.json(organization)
+    return NextResponse.json(organizationContainer.data)
 }
