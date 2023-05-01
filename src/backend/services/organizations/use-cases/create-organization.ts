@@ -1,23 +1,16 @@
-import bunyan from 'bunyan';
-import {GenerateIdFunction} from '../../util/id/types/generate-id';
-import {Model} from 'mongoose';
-import {Organization} from '../models/Organization';
-import {User} from '../../main/models/User';
-import {CreateOrganizationFunction} from '../types/create-organization';
-import {DEFAULT_ID_LENGTH} from '../../util/id/constants/default-id-length';
-import {returnInternalServerError} from '../../common/use-cases/status-data-container';
+import {PrismaClient, User} from '@prisma/client';
+import {CreateOrganizationFunction} from '@/backend/services/organizations/types/create-organization';
+import {ReturnForbiddenFunction} from '@/backend/common/use-cases/status-data-container/types/return-forbidden';
 
 /**
  * Closure for the service function which creates an organization.
- * @param {bunyan} logger used for logging
- * @param {GenerateIdFunction} generateId used to generate ID for newly created organization
- * @param {Model<Organization>} OrganizationModel used to access organization data
+ * @param {ReturnForbiddenFunction} returnForbidden function to return forbidden status data container
+ * @param {PrismaClient} prismaClient used to access the database
  * @return {CreateOrganizationFunction} service function which creates an organization
  */
 export const makeCreateOrganization = (
-    logger: bunyan,
-    generateId: GenerateIdFunction,
-    OrganizationModel: Model<Organization>,
+    returnForbidden: ReturnForbiddenFunction,
+    prismaClient: PrismaClient,
 ): CreateOrganizationFunction => {
   /**
      * Service function which creates an organization.
@@ -29,25 +22,27 @@ export const makeCreateOrganization = (
       requestingUser: User,
       name: string,
   ) {
-    const organization: Organization = {
-      id: await generateId(DEFAULT_ID_LENGTH),
-      name,
-      administratorEmails: [requestingUser.email],
-      memberEmails: [],
-    };
-
-    try {
-      await new OrganizationModel(organization).save();
-      logger.info(`POST new organization with ID: ${organization.id}`);
-      return {
-        status: 201,
-        data: {
-          ...organization,
-        },
-      };
-    } catch (err) {
-      logger.error(`An error has occurred: ${err}`);
-      return returnInternalServerError();
+    if (!requestingUser || !requestingUser.email) {
+      return returnForbidden();
     }
+    const organization = await prismaClient.organization.create({
+      data: {
+        name,
+        administrators: {
+          connect: {
+            id: requestingUser.id,
+            email: requestingUser.email,
+          },
+        },
+      },
+      include: {
+        administrators: true,
+      },
+    });
+
+    return {
+      status: 201,
+      data: organization,
+    };
   };
 };

@@ -1,20 +1,21 @@
+import {createOrganization} from '@/backend/services/organizations/use-cases';
+import {getServerSessionOrLocal} from '@/backend/helpers/server/get-session';
+import {returnUnauthorized} from '@/backend/helpers/server/return-status';
 import {NextResponse} from 'next/server';
-import {prismaClient} from "@/backend/lib/db";
-import {Organization} from ".prisma/client";
 
+/**
+ * Create organization route.
+ * @param {Request} request incoming request
+ * @constructor
+ */
 export async function POST(request: Request) {
-    const requestBody = await request.json() as Organization
+  const session = await getServerSessionOrLocal();
+  if (!session) {
+    return returnUnauthorized();
+  }
+  const requestBody = await request.json() as any;
 
-    const result = await prismaClient.organization.create({
-        data: {
-            name: requestBody.name,
-            administrators: {
-                connect: {
-                    email: 'jonathan.lee.devel@gmail.com',
-                },
-            },
-        }
-    })
+  const organizationContainer = await createOrganization(session.user, requestBody.name);
 
-    return NextResponse.json({ 'organization': requestBody, 'result': result })
+  return NextResponse.json(organizationContainer.data, {status: organizationContainer.status});
 }
