@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -39,20 +36,48 @@ model Session {
 }
 
 model User {
-  id                           String         @id @default(cuid())
-  name                         String?
-  email                        String?        @unique
-  emailVerified                DateTime?
-  image                        String?
-  accounts                     Account[]
-  sessions                     Session[]
-  organizationsAsMember        Organization[] @relation("Members") // One-to-Many relationship with Organization as member
-  organizationsAsAdministrator Organization[] @relation("Administrators") // One-to-Many relationship with Organization as administrator
+  id                             String                          @id @default(cuid())
+  name                           String?
+  email                          String?                         @unique
+  emailVerified                  DateTime?
+  image                          String?
+  accounts                       Account[]
+  sessions                       Session[]
+  organizationsAsMember          Organization[]                  @relation("Members") // One-to-Many relationship with Organization as member
+  organizationsAsAdministrator   Organization[]                  @relation("Administrators") // One-to-Many relationship with Organization as administrator
+  organizationInvitations        OrganizationInvitation[] // One-to-Many relationship with OrganizationInvitation
+  organizationMembershipRequests OrganizationMembershipRequest[] // One-to-Many relationship with OrganizationMembershipRequest
+  OrganizationMembershipRequest  OrganizationMembershipRequest[] @relation("RequestingUsers")
 }
 
 model Organization {
-  id             String @id @default(cuid())
-  name           String
-  members        User[] @relation("Members") // Many-to-Many relationship with User as members
-  administrators User[] @relation("Administrators") // Many-to-Many relationship with User as administrators
+  id                             String                          @id @default(cuid())
+  name                           String
+  members                        User[]                          @relation("Members") // Many-to-Many relationship with User as members
+  administrators                 User[]                          @relation("Administrators") // Many-to-Many relationship with User as administrators
+  organizationInvitations        OrganizationInvitation[] // One-to-Many relationship with OrganizationInvitation
+  organizationMembershipRequests OrganizationMembershipRequest[] // One-to-Many relationship with OrganizationMembershipRequest
+}
+
+model OrganizationInvitation {
+  id               String       @id @default(cuid())
+  organization     Organization @relation(fields: [organizationId], references: [id])
+  organizationId   String
+  requestingUser   User?        @relation(fields: [requestingUserId], references: [id])
+  requestingUserId String?
+  isAccepted       Boolean      @default(false)
+  value            String
+  expiryDate       DateTime
+  emailToInvite    String
+}
+
+model OrganizationMembershipRequest {
+  id                       String       @id @default(cuid())
+  organization             Organization @relation(fields: [organizationId], references: [id])
+  organizationId           String
+  requestingUser           User?        @relation("RequestingUsers", fields: [requestingUserId], references: [id])
+  requestingUserId         String?
+  isApproved               Boolean      @default(false)
+  approvingAdministrator   User?        @relation(fields: [approvingAdministratorId], references: [id])
+  approvingAdministratorId String?
 }

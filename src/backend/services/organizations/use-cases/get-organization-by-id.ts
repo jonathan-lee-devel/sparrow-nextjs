@@ -30,8 +30,8 @@ export const makeGetOrganizationById = (
         id: organizationId,
       },
       include: {
-        administrators: {},
-        members: {},
+        administrators: true,
+        members: true,
       },
     });
     if (!organization) {

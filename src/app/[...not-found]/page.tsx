@@ -1,8 +1,8 @@
-import { notFound } from 'next/navigation'
-import { FC } from 'react'
+import {notFound} from 'next/navigation';
+import {FC} from 'react';
 
 const page: FC = () => {
-  notFound()
-}
+  notFound();
+};
 
-export default page
+export default page;

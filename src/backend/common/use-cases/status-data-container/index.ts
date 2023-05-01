@@ -1,13 +1,12 @@
-import {makeReturnNotFound} from './return-not-found';
-import {makeReturnForbidden} from './return-forbidden';
-import {makeReturnInternalServerError} from './return-internal-server-error';
-import {loggerConfig} from '../../../main/config/logger/logger-config';
-
-const logger = loggerConfig();
+import {makeReturnNotFound} from '@/backend/common/use-cases/status-data-container/return-not-found';
+import {makeReturnForbidden} from '@/backend/common/use-cases/status-data-container/return-forbidden';
+import {
+  makeReturnInternalServerError,
+} from '@/backend/common/use-cases/status-data-container/return-internal-server-error';
 
 export const returnNotFound = makeReturnNotFound();
 
-export const returnForbidden = makeReturnForbidden(logger);
+export const returnForbidden = makeReturnForbidden();
 
 export const returnInternalServerError =
     makeReturnInternalServerError();
